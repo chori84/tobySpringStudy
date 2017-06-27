@@ -9,9 +9,8 @@ import java.sql.SQLException;
  */
 public class UserDaoTest {
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
-        ConnectionMaker connectionMaker = new MyConnectionMaker();
-
-        UserDao dao = new UserDao(connectionMaker);
+        // 테스트 클래스의 목적인 UserDao의 테스트 역할만을 위해 Connection 객체 생성을 DaoFactory에게 넘겼다.
+        UserDao dao = new DaoFactory().userDao();
 
         User user = new User();
         user.setId("whiteship");
