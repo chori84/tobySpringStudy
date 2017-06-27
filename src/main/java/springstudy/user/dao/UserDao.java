@@ -11,9 +11,9 @@ import java.sql.*;
 public class UserDao {
     private ConnectionMaker connectionMaker;
 
-    public UserDao() {
-        // 아직 의존 관계가 완벽히 끊어지지 않음
-        connectionMaker = new MyConnectionMaker();
+    public UserDao(ConnectionMaker connectionMaker) {
+        // 관계가 인터페이스로 완전히 바뀜
+        this.connectionMaker = connectionMaker;
     }
 
     public void add(User user) throws ClassNotFoundException, SQLException {
