@@ -13,7 +13,8 @@ public class CountingDaoFactory {
     public UserDao userDao() {
         // 수정자 적용
         UserDao userDao = new UserDao();
-        userDao.setConnectionMaker(connectionMaker());
+        // userDao의 의존관계가 ConnectionMaker > DataSource로 변경 되어 주석 처리
+        // userDao.setConnectionMaker(connectionMaker());
         return userDao;
     }
 

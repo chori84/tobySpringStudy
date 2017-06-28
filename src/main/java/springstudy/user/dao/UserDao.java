@@ -3,22 +3,22 @@ package springstudy.user.dao;
 import springstudy.user.Account;
 import springstudy.user.domain.User;
 
+import javax.sql.DataSource;
 import java.sql.*;
 
 /**
  * Created by chori on 2017. 6. 27..
  */
 public class UserDao {
-    private ConnectionMaker connectionMaker;
+    // ConnectionMaker > DataSource로 변경
+    private DataSource dataSource;
 
-    // 생성자 > 수정자로 변경
-    public void setConnectionMaker(ConnectionMaker connectionMaker) {
-        // 관계가 인터페이스로 완전히 바뀜
-        this.connectionMaker = connectionMaker;
+    public void setDataSource(DataSource dataSource) {
+        this.dataSource = dataSource;
     }
 
-    public void add(User user) throws ClassNotFoundException, SQLException {
-        Connection c = connectionMaker.makeConnection();
+    public void add(User user) throws SQLException {
+        Connection c = dataSource.getConnection();
 
         PreparedStatement ps = c.prepareStatement(
                 "insert into users(id, name, password) values(?, ?, ?)");
@@ -32,8 +32,8 @@ public class UserDao {
         c.close();
     }
 
-    public User get(String id) throws ClassNotFoundException, SQLException {
-        Connection c = connectionMaker.makeConnection();
+    public User get(String id) throws SQLException {
+        Connection c = dataSource.getConnection();
 
         PreparedStatement ps = c.prepareStatement(
                 "select * from users where id = ?");
