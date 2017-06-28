@@ -11,7 +11,8 @@ import java.sql.*;
 public class UserDao {
     private ConnectionMaker connectionMaker;
 
-    public UserDao(ConnectionMaker connectionMaker) {
+    // 생성자 > 수정자로 변경
+    public void setConnectionMaker(ConnectionMaker connectionMaker) {
         // 관계가 인터페이스로 완전히 바뀜
         this.connectionMaker = connectionMaker;
     }

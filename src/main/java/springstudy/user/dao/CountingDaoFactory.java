@@ -11,7 +11,10 @@ import org.springframework.context.annotation.Configuration;
 public class CountingDaoFactory {
     @Bean
     public UserDao userDao() {
-        return new UserDao(connectionMaker());
+        // 수정자 적용
+        UserDao userDao = new UserDao();
+        userDao.setConnectionMaker(connectionMaker());
+        return userDao;
     }
 
     @Bean

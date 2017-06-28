@@ -12,7 +12,9 @@ public class DaoFactory {
     @Bean
     public UserDao userDao() {
         // UserDao 타입의 오브젝트를 어떻게 만들고, 어떻게 준비시킬지 결정
-        UserDao userDao = new UserDao(connectionMaker());
+        // 수정자 적용
+        UserDao userDao = new UserDao();
+        userDao.setConnectionMaker(connectionMaker());
 
         return userDao;
     }
