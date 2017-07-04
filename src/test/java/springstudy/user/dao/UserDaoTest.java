@@ -27,21 +27,13 @@ import static org.junit.Assert.assertThat;
  * Created by chori on 2017. 6. 28..
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "/applicationContext.xml")
-@DirtiesContext
+@ContextConfiguration(locations = "/test-applicationContext.xml")
 public class UserDaoTest {
     @Autowired
     private ApplicationContext context;
 
     @Autowired
     private UserDao dao;
-
-    @Value("#{mysqlUserInfo['mysql.test.url']}")
-    private String testUrl;
-    @Value("#{mysqlUserInfo['mysql.test.userId']}")
-    private String testUserId;
-    @Value("#{mysqlUserInfo['mysql.test.userPassword']}")
-    private String testUserPassword;
 
     private User user1;
     private User user2;
@@ -52,9 +44,6 @@ public class UserDaoTest {
         user1 = new User("gyumee", "박성철", "springno1");
         user2 = new User("leegw700", "이길원", "springno2");
         user3 = new User("bumjin", "박범진", "springno3");
-
-        DataSource dataSource = new SingleConnectionDataSource(testUrl, testUserId, testUserPassword, true);
-        dao.setDataSource(dataSource);
     }
 
     @Test
