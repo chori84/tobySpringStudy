@@ -1,11 +1,13 @@
 package springstudy.user.dao;
 
 import org.springframework.dao.EmptyResultDataAccessException;
-import springstudy.user.Account;
 import springstudy.user.domain.User;
 
 import javax.sql.DataSource;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  * Created by chori on 2017. 6. 27..

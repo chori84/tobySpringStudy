@@ -2,27 +2,15 @@ package springstudy.user.dao;
 
 import org.junit.Before;
 import org.junit.Test;
-
-import org.junit.runner.JUnitCore;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.support.GenericXmlApplicationContext;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.datasource.SingleConnectionDataSource;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import springstudy.user.domain.User;
 
 import javax.sql.DataSource;
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.Properties;
-import java.util.ResourceBundle;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -39,11 +27,17 @@ public class UserDaoTest {
 
     @Before
     public void setUp() {
-        ResourceBundle resourceBundle = ResourceBundle.getBundle("mysqlUserInfo");
+        Properties properties = new Properties();
+        InputStream inputStream = getClass().getResourceAsStream("/mysqlUserInfo.properties");
+        try {
+            properties.load(inputStream);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
 
-        String testUrl = resourceBundle.getString("mysql.test.url");
-        String testUserId = resourceBundle.getString("mysql.test.userId");
-        String testUserPassword = resourceBundle.getString("mysql.test.userPassword");
+        String testUrl = String.valueOf(properties.get("mysql.test.url").toString());
+        String testUserId = String.valueOf(properties.get("mysql.test.userId"));
+        String testUserPassword = String.valueOf(properties.get("mysql.test.userPassword"));
 
         user1 = new User("gyumee", "박성철", "springno1");
         user2 = new User("leegw700", "이길원", "springno2");
