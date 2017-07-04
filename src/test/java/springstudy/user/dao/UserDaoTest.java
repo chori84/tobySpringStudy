@@ -1,5 +1,6 @@
 package springstudy.user.dao;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import org.junit.runner.JUnitCore;
@@ -18,17 +19,25 @@ import static org.junit.Assert.assertThat;
  * Created by chori on 2017. 6. 28..
  */
 public class UserDaoTest {
+    private UserDao dao;
+    private User user1;
+    private User user2;
+    private User user3;
+
+    @Before
+    public void setUp() {
+        ApplicationContext context = new GenericXmlApplicationContext("applicationContext.xml");
+        dao = context.getBean("userDao", UserDao.class);
+
+        user1 = new User("gyumee", "박성철", "springno1");
+        user2 = new User("leegw700", "이길원", "springno2");
+        user3 = new User("bumjin", "박범진", "springno3");
+    }
+
     @Test
     public void addAndGet() throws SQLException {
-        ApplicationContext context = new GenericXmlApplicationContext("applicationContext.xml");
-        // 테스트 클래스의 목적인 UserDao의 테스트 역할만을 위해 Connection 객체 생성을 DaoFactory에게 넘겼다.
-        UserDao dao = context.getBean("userDao", UserDao.class);
-
         dao.deleteAll();
         assertThat(dao.getCount(), is(0));
-
-        User user1 = new User("gyumee", "박성철", "springno1");
-        User user2 = new User("leegw700", "이길원", "springno2");
 
         dao.add(user1);
         dao.add(user2);
@@ -45,13 +54,6 @@ public class UserDaoTest {
 
     @Test
     public void count() throws SQLException {
-        ApplicationContext context = new GenericXmlApplicationContext("applicationContext.xml");
-
-        UserDao dao = context.getBean("userDao", UserDao.class);
-        User user1 = new User("gyumee", "박성철", "springno1");
-        User user2 = new User("leegw700", "이길원", "springno2");
-        User user3 = new User("bumjin", "박범진", "springno3");
-
         dao.deleteAll();
         assertThat(dao.getCount(), is(0));
 
@@ -67,9 +69,6 @@ public class UserDaoTest {
 
     @Test(expected = EmptyResultDataAccessException.class)
     public void get() throws SQLException {
-        ApplicationContext context = new GenericXmlApplicationContext("applicationContext.xml");
-
-        UserDao dao = context.getBean("userDao", UserDao.class);
         dao.deleteAll();
         assertThat(dao.getCount(), is(0));
 
