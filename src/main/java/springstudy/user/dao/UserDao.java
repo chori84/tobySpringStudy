@@ -12,7 +12,7 @@ import java.sql.SQLException;
 /**
  * Created by chori on 2017. 6. 27..
  */
-public class UserDao {
+public abstract class UserDao {
     // ConnectionMaker > DataSource로 변경
     private DataSource dataSource;
 
@@ -90,11 +90,7 @@ public class UserDao {
         }
     }
 
-    private PreparedStatement makeStatement(Connection c) throws SQLException {
-        PreparedStatement ps;
-        ps = c.prepareStatement("delete from users");
-        return ps;
-    }
+    abstract protected PreparedStatement makeStatement(Connection c) throws SQLException;
 
     public int getCount() throws SQLException {
         Connection c = null;
